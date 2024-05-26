@@ -67,6 +67,11 @@ EOF
 
 echo "systemd service installed to : /etc/systemd/system/minecraft.service"
 sleep 2
+
+echo "Adjust and accept EULA inside eula.txt"
+
+su -l mcserver -c "echo 'eula=true' > /home/mcserver/minecraft/eula.txt"
+
 # Reload systemd manager configuration (reload all unit files so the new minecraft.service get recoginized by system)
 echo "Reloading systemd.."
 systemctl daemon-reload
@@ -79,12 +84,8 @@ echo "Start minecraft.service"
 systemctl start minecraft.service
 sleep 2
 
-echo "Adjust and accept EULA inside eula.txt"
-
-su -l mcserver -c "echo 'eula=true' > /home/mcserver/minecraft/eula.txt"
-
 # Setup Done
 echo "Minecraft server setup completed."
 sleep 2
 
-#echo "Reboot the server and login again by running : systemd reboot"
+echo "Reboot the server and login again by running : systemctl reboot"
